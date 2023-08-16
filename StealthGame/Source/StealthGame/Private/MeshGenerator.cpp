@@ -1,6 +1,7 @@
 
 #include "MeshGenerator.h"
 #include "ProceduralMeshComponent.h"
+#include "KismetProceduralMeshLibrary.h"
 
 AMeshGenerator::AMeshGenerator()
 {
@@ -12,25 +13,74 @@ AMeshGenerator::AMeshGenerator()
 	//SuperMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Super Mesh Component"));
 }
 
+/*void AMeshGenerator::OnConstruction(const FTransform &Transform)
+{
+	Super::OnConstruction(Transform);
+
+	//Clear at the Beginning of function, cause performance issue when not clearing
+	Vertices.Reset();
+	Triangles.Reset();
+	UV0.Reset();
+
+	CreateVertices();
+	CreateTriangles();
+
+	UKismetProceduralMeshLibrary::CalculateTangentsForMesh(Vertices, Triangles, UV0, Normals, Tangents);
+	//UKismetProceduralMeshLibrary::CalculateTangentsForMesh(Vertices, Triangles, UV0, TArray<FVector>(), TArray<FProcMeshTangent>());
+
+		ProceduralMeshComp->CreateMeshSection(
+		0, //section Index
+		Vertices,
+		Triangles, 
+		Normals, //Normals: parameters of default  constructor
+		UV0, //Texture Cordinates
+		TArray<FColor>(),
+		Tangents, 
+		EnableCollision); //enable mesh collision
+
+		/*ProceduralMeshComp->CreateMeshSection(
+		0, //section Index
+		Vertices,
+		Triangles, 
+		TArray<FVector>(),  //Normals: parameters of default  constructor
+		UV0, //Texture Cordinates
+		TArray<FColor>(),
+		TArray<FProcMeshTangent>(),
+		EnableCollision); //enable mesh collision*/
+
+		//ProceduralMeshComp->SetMaterial(0, SandMaterial);
+//}
+
+
 void AMeshGenerator::BeginPlay()
 {
 	Super::BeginPlay();
 
+	//Clear at the Beginning of function, cause performance issue when not clearing
+	Vertices.Reset();
+	Triangles.Reset();
+	UV0.Reset();
+
 	CreateVertices();
 	CreateTriangles();
+
+	UKismetProceduralMeshLibrary::CalculateTangentsForMesh(Vertices, Triangles, UV0, Normals /*TArray<FVector>()*/, Tangents /*TArray<FProcMeshTangent>()*/);
 
 	ProceduralMeshComp->CreateMeshSection(
 		0, //section Index
 		Vertices,
 		Triangles, 
-		TArray<FVector>(), //Normals: parameters of default  constructor
+		//TArray<FVector>(), 
+		Normals, //Normals: parameters of default  constructor
 		UV0, //Texture Cordinates
-		TArray<FColor>(), 
-		TArray<FProcMeshTangent>(), 
+		TArray<FColor>(),
+		//TArray<FProcMeshTangent>(),
+		Tangents, 
 		EnableCollision); //enable mesh collision
 
 		ProceduralMeshComp->SetMaterial(0, SandMaterial);
 }
+
 
 // Called every frame
 void AMeshGenerator::Tick(float DeltaTime)
