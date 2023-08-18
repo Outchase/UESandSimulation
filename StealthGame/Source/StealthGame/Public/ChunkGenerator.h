@@ -23,7 +23,7 @@ public:
 	UPROPERTY(EditAnywhere, Meta = (ClampMin = 0))
 	int YSize = 1; //number of squares in Y axis*/
 
-	UPROPERTY(EditAnywhere, Category = "Cellulare")
+	/*UPROPERTY(EditAnywhere, Category = "Cellulare")
 	float Jitter = 0;
 
 	UPROPERTY(EditAnywhere, Category = "Noise")
@@ -35,7 +35,7 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Noise")
 	float Lacunarity = 1.f;
 	UPROPERTY(EditAnywhere, Category = "Noise")
-	float Gain = 1.f;
+	float Gain = 1.f;*/
 
 	UPROPERTY(EditAnywhere, Meta = (ClampMin = 0))
 	int Size = 0;

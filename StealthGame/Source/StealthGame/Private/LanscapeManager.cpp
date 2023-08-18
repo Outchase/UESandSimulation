@@ -47,13 +47,13 @@ void ALanscapeManager::Tick(float DeltaTime)
 void ALanscapeManager::SetChunkParameters(AChunkGenerator* Chunk)
 {
 
-	Chunk->Jitter = Jitter;
+	/*Chunk->Jitter = Jitter;
 
 	Chunk->Seed = Seed; 
 	Chunk->Frequency = Frequency;
 	Chunk->Octaves = Octaves;
 	Chunk->Lacunarity = Lacunarity;
-	Chunk->Gain = Gain;
+	Chunk->Gain = Gain;*/
 
 	Chunk->Size = Size;
 	Chunk->VertexDistance = Scale/Size;

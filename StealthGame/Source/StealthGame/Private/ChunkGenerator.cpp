@@ -130,7 +130,7 @@ float AChunkGenerator::CalculateZ(int X, int Y)
 {
 	UE_LOG(LogTemp, Warning, TEXT("%f"), XOffset);
 	UE_LOG(LogTemp, Warning, TEXT("%f"), YOffset);
-	return FMath::PerlinNoise2D(FVector2D((X * NoiseScale) + 0.1 + XOffset ,(Y * NoiseScale) + 0.1 + YOffset)) * ZMultiplier;
+	return FMath::PerlinNoise2D(FVector2D((X + 0.1 + XOffset) * NoiseScale,(Y + 0.1 + YOffset) * NoiseScale)) * ZMultiplier;
 }
 
 float AChunkGenerator::CalculateCordinates(float Distance, int XYIndex)

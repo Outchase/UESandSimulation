@@ -32,8 +32,11 @@ public:
 	UMaterialInterface* Material;
 	UPROPERTY(EditAnywhere, Category = "Chunk Parameters")
 	bool EnableCollision = true;
+	
+	UPROPERTY(EditAnywhere, Meta = (ClampMin = 0), Category = "Noise")
+	float NoiseScale = 1.f;
 
-	UPROPERTY(EditAnywhere, Category = "Noise")
+	/*UPROPERTY(EditAnywhere, Category = "Noise")
 	int Seed = 0;
 	UPROPERTY(EditAnywhere, Category = "Noise")
 	float Frequency = 1.f;
@@ -44,9 +47,8 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Noise")
 	float Gain = 1.f;
 	UPROPERTY(EditAnywhere, Category = "Noise")
-	float Jitter = 0;
-	UPROPERTY(EditAnywhere, Meta = (ClampMin = 0), Category = "Noise")
-	float NoiseScale = 1.f; 
+	float Jitter = 0;*/
+ 
 
 
 protected:
