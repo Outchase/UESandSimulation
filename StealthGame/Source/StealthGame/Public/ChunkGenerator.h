@@ -53,6 +53,9 @@ public:
 	UPROPERTY(EditAnywhere, Meta =(ClampMin = 0.00001))
 	bool EnableCollision = true;
 
+	float XOffset;
+	float YOffset;
+
 	void Generate();
 
 

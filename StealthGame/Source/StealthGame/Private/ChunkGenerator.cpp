@@ -116,7 +116,7 @@ void AChunkGenerator::Generate()
 		Vertices,
 		Triangles, 
 		//TArray<FVector>(), 
-		Normals, //Normals: parameters of default  constructor
+		Normals, //Normals: parameters of default constructor
 		UV0, //Texture Cordinates
 		TArray<FColor>(),
 		//TArray<FProcMeshTangent>(),
@@ -128,7 +128,9 @@ void AChunkGenerator::Generate()
 
 float AChunkGenerator::CalculateZ(int X, int Y)
 {
-	return FMath::PerlinNoise2D(FVector2D(X * NoiseScale + 0.1 ,Y * NoiseScale + 0.1)) * ZMultiplier;
+	UE_LOG(LogTemp, Warning, TEXT("%f"), XOffset);
+	UE_LOG(LogTemp, Warning, TEXT("%f"), YOffset);
+	return FMath::PerlinNoise2D(FVector2D((X * NoiseScale) + 0.1 + XOffset ,(Y * NoiseScale) + 0.1 + YOffset)) * ZMultiplier;
 }
 
 float AChunkGenerator::CalculateCordinates(float Distance, int XYIndex)

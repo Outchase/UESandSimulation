@@ -62,6 +62,9 @@ void ALanscapeManager::SetChunkParameters(AChunkGenerator* Chunk)
 	Chunk->Material = Material;
 	Chunk->NoiseScale = NoiseScale;
 	Chunk->EnableCollision = EnableCollision;
+	Chunk->XOffset = Size*(int32)Visible.X;
+	Chunk->YOffset = Size*(int32)Visible.Y;
+
 
 	//UE_LOG(LogTemp, Warning, TEXT("Actor %s"), *Chunk->GetName());
 }
