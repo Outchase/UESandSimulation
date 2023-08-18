@@ -73,7 +73,7 @@ void ALanscapeManager::SetVisible()
 {
 	for(int I = Distance*-1; I < Distance; I++){
 		Visible.X= (int32)CurrentChunkPosition.X+I;
-		Visible.Y= (int32)CurrentChunkPosition.Y+I;
+		Visible.Y= (int32)CurrentChunkPosition.Y+I; 
 	}
 }
 

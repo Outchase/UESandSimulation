@@ -38,7 +38,7 @@ void AChunkGenerator::CreateVertices(int XYSize){
 			float UVX = CalculateCordinates(UVScale , I);
 			float UVY = CalculateCordinates(UVScale, J);
 
-			/* //For Debugging:
+			/*//For Debugging:
 			UE_LOG(LogTemp, Warning, TEXT("((%i / -2) + %i) * %f = %f"), Size, I, VertexDistance, X);
 			UE_LOG(LogTemp, Warning, TEXT("((%i / -2) + %i) * %f = %f"), Size, J, VertexDistance, Y);
 			UE_LOG(LogTemp, Warning, TEXT("((%i / -2) + %i) * %f = %f"), Size, I, VertexDistance, UVX);
@@ -128,8 +128,8 @@ void AChunkGenerator::Generate()
 
 float AChunkGenerator::CalculateZ(int X, int Y)
 {
-	UE_LOG(LogTemp, Warning, TEXT("%f"), XOffset);
-	UE_LOG(LogTemp, Warning, TEXT("%f"), YOffset);
+	//UE_LOG(LogTemp, Warning, TEXT("%f"), XOffset);
+	//UE_LOG(LogTemp, Warning, TEXT("%f"), YOffset);
 	return FMath::PerlinNoise2D(FVector2D((X + 0.1 + XOffset) * NoiseScale,(Y + 0.1 + YOffset) * NoiseScale)) * ZMultiplier;
 }
 
@@ -141,5 +141,5 @@ float AChunkGenerator::CalculateCordinates(float Distance, int XYIndex)
 	//UVX = ((10 / -2) + 0) * 1.000000 = -5.000000
 	//UVY = ((10 / -2) + 1) * 1.000000 = -4.000000
 	 
-	return ((Size/-2)+XYIndex)*(int32)Distance;
+	return ((Size/-2.f)+XYIndex)*(int32)Distance;
 }
