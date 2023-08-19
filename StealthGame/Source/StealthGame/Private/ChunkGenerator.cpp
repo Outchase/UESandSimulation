@@ -7,6 +7,7 @@ AChunkGenerator::AChunkGenerator()
 {
 	PrimaryActorTick.bCanEverTick = false;
 
+	//set components
 	ProceduralMeshComp = CreateDefaultSubobject<UProceduralMeshComponent>(TEXT("ProceduralMesh"));
 	ProceduralMeshComp->SetupAttachment(GetRootComponent());
 
@@ -16,7 +17,6 @@ AChunkGenerator::AChunkGenerator()
 void AChunkGenerator::BeginPlay()
 {
 	Super::BeginPlay();
-
 }
 
 // Called every frame
@@ -32,7 +32,7 @@ void AChunkGenerator::CreateVertices(int XYSize){
 			float Z= CalculateZ(I, J);
 			//GEngine->AddOnScreenDebugMessage(-1, 999.f, FColor::Yellow, FString::Printf(TEXT("Z %f"), Z));
 
-			//Calculate it to set the pivot
+			//Calculate it to set the pivot of chunk
 			float X = CalculateCordinates(VertexDistance, I);
 			float Y = CalculateCordinates(VertexDistance, J);
 			float UVX = CalculateCordinates(UVScale , I);
@@ -52,16 +52,6 @@ void AChunkGenerator::CreateVertices(int XYSize){
 	}
 }
 
-/*void AChunkGenerator::CreateVertices(int XSize, int YSize){
-	for(int I = 0; I <= XSize; I++){
-		for(int J = 0; J <= YSize; J++){
-			float Z= CalculateZ(I, J);
-			//GEngine->AddOnScreenDebugMessage(-1, 999.f, FColor::Yellow, FString::Printf(TEXT("Z %f"), Z));
-			Vertices.Add(FVector(I * VertexDistance, J * VertexDistance, Z));// there
-			UV0.Add(FVector2D(I * UVScale, J * UVScale));
-		}
-	}
-}*/
 
 void AChunkGenerator::CreateTriangles(int XYSize){
 	int Vertex = 0;
@@ -80,24 +70,6 @@ void AChunkGenerator::CreateTriangles(int XYSize){
 		Vertex++;
 	}
 }
-
-/*void AChunkGenerator::CreateTriangles(int XSize, int YSize){
-	int Vertex = 0;
-
-	for(int I = 0; I < XSize; I++){
-		for(int J = 0; J < YSize; J++){
-			Triangles.Add(Vertex);
-			Triangles.Add(Vertex + 1);
-			Triangles.Add(Vertex + YSize + 1);
-			Triangles.Add(Vertex + 1);
-			Triangles.Add(Vertex + YSize + 2);
-			Triangles.Add(Vertex + YSize + 1);
-
-			Vertex++;
-		}
-		Vertex++;
-	}
-}*/
 
 void AChunkGenerator::Generate()
 {
@@ -128,8 +100,6 @@ void AChunkGenerator::Generate()
 
 float AChunkGenerator::CalculateZ(int X, int Y)
 {
-	//UE_LOG(LogTemp, Warning, TEXT("%f"), XOffset);
-	//UE_LOG(LogTemp, Warning, TEXT("%f"), YOffset);
 	return FMath::PerlinNoise2D(FVector2D((X + 0.1 + XOffset) * NoiseScale,(Y + 0.1 + YOffset) * NoiseScale)) * ZMultiplier;
 }
 
@@ -142,4 +112,21 @@ float AChunkGenerator::CalculateCordinates(float Distance, int XYIndex)
 	//UVY = ((10 / -2) + 1) * 1.000000 = -4.000000
 	 
 	return ((Size/-2.f)+XYIndex)*(int32)Distance;
+}
+
+void AChunkGenerator::CalculatePrimeNumbers()
+{
+	//ThreadTest::Generate2(Vertices, Triangles, UV0, Size, XOffset, YOffset, NoiseScale, ZMultiplier, VertexDistance, ProceduralMeshComp, Normals, Tangents, EnableCollision, Material);
+	ThreadTest::CalculatePrimeNumbers(MaxPrime);
+
+	GLog->Log("");
+	GLog->Log("End of Calculating on game thread");
+	GLog->Log("");
+}
+
+void AChunkGenerator::CalculatePrimeNumbersAsync()
+{
+	//(new FAutoDeleteAsyncTask<GenerateAsyncTask>(Vertices, Triangles, UV0, Size, XOffset, YOffset, NoiseScale, ZMultiplier, VertexDistance, ProceduralMeshComp, Normals, Tangents, EnableCollision, Material))->StartBackgroundTask();
+	(new FAutoDeleteAsyncTask<CalculateAsyncTask>(MaxPrime))->StartBackgroundTask();
+
 }
