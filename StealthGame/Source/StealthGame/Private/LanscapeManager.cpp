@@ -44,7 +44,6 @@ void ALanscapeManager::Tick(float DeltaTime)
 
 }
 
-
 void ALanscapeManager::SetChunkParameters(AChunkGenerator* Chunk)
 {
 	Chunk->Size = Size;
