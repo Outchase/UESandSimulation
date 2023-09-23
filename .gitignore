@@ -8,7 +8,6 @@
 */Saved
 */**/Megascans
 */**/StarterContent
-*.ini
 
 #########################
 # Wwise Generated Files #
@@ -30,6 +29,7 @@
 
 # Visual Studio 2015 user specific files
 .vs/
+.vscode
 
 # Compiled Object files
 *.slo
